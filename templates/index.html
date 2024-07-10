@@ -16,23 +16,40 @@
             color: #333;
             background-color: #0f0;
         }
-        .mod {
+        .flexcontainer {
+            display: flex;
+            flex-direction: column;
+        }
+        .flexbox {
             background-color: #222;
             border-radius: 2vmin;
             padding: 2vmin;
             font-size: 3vmin;
             margin: 2vmin;
         }
-        #info {
-            height: 30%;
+        .flexcontainerh {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .flexboxh {
+            background-color: #222;
+            border-radius: 2vmin;
+            padding: 2vmin;
+            font-size: 3vmin;
+            margin: 2vmin;
+        }
+        .break {
+            flex-basis: 100%;
+            height: 0;
         }
         #info span {
             padding: 1vmin;
             border-radius: 1vmin;
         }
         #timeline {
-            height: 60%;
-            max-height: 60%;
+            flex-grow: 1;
         }
         #timelineview {
             overflow-y: scroll;
@@ -44,10 +61,22 @@
             font-size: large;
             margin: 1vmin;
         }
+        button, input{
+            color: #666;
+            background-color: #333;
+            border-color: #333;
+            border-radius: 1vmin;
+            margin: 1vmin;
+        }
+        input {
+            flex-grow: 1;
+            max-height: 4vmin;
+            font-size: 2vmin;
+        }
     </style>
 </head>
 <body>
-    <div id="info" class="mod">
+    <div id="info" class="flexbox">
         Session: <span id="activity">Active</span> 
         <br>
         <br>
@@ -55,9 +84,9 @@
         <br>
         <h1>60:00</h1>
     </div>
-    <div id="timeline" class="mod">
-        <div id="timelineview">
-            <div class="event">
+    <div id="timeline" class="flexbox">
+        <div id="timelineview" class="flexcontainer">
+            <div class="event flexbox">
                 <span>15:00</span>
                 <p>45m remaining</p>
             </div>
@@ -85,6 +114,13 @@
                 <span>15:00</span>
                 <p>45m remaining</p>
             </div>
+        </div>
+        <div id="update" class="flexbox flexcontainerh">
+            <input class="flexboxh" type="text" placeholder="Did this, did that...">
+            <button class="flexboxh">Send Update</button>
+            <div class="break"></div>
+            <input class="flexboxh" type="text" placeholder="/your/arcade/project/">
+            <button class="flexboxh">Send Project Snapshot as Git Commit</button>
         </div>
     </div>
 </body>
