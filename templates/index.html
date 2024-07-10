@@ -5,20 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arcade Offline</title>
     <style>
+        body {
+            background-color: #333;
+        }
         * {
-            font-family: sans-serif;
+            color: #666;
+            font-family: monospace;
         }
         #activity {
-            color: white;
+            color: #333;
             background-color: #0f0;
+        }
+        .mod {
+            background-color: #222;
+            border-radius: 2vmin;
+            padding: 2vmin;
+            font-size: 3vmin;
+            margin: 2vmin;
+        }
+        #info {
+            height: 30%;
+        }
+        #info span {
+            padding: 1vmin;
+            border-radius: 1vmin;
+        }
+        #timeline {
+            height: 60%;
+            max-height: 60%;
+        }
+        #timelineview {
+            overflow-y: scroll;
+        }
+        .event {
+            background-color: #333;
+            border-radius: 1vmin;
+            padding: 1vmin;
+            font-size: large;
+            margin: 1vmin;
         }
     </style>
 </head>
 <body>
-    <div>
-        <h3>Session: <span id="activity">Active</span></h3>
-        <h3>Time Remaining:</h3>
+    <div id="info" class="mod">
+        Session: <span id="activity">Active</span> 
+        <br>
+        <br>
+        Time remaining:
+        <br>
         <h1>60:00</h1>
+    </div>
+    <div id="timeline" class="mod">
+        <div id="timelineview">
+            <div class="event">
+                <span>15:00</span>
+                <p>45m remaining</p>
+            </div>
+            <div class="event">
+                <span>15:00</span>
+                <p>45m remaining</p>
+            </div>
+            <div class="event">
+                <span>15:00</span>
+                <p>45m remaining</p>
+            </div>
+            <div class="event">
+                <span>15:00</span>
+                <p>45m remaining</p>
+            </div>
+            <div class="event">
+                <span>15:00</span>
+                <p>45m remaining</p>
+            </div>
+            <div class="event">
+                <span>15:00</span>
+                <p>45m remaining</p>
+            </div>
+            <div class="event">
+                <span>15:00</span>
+                <p>45m remaining</p>
+            </div>
+        </div>
     </div>
 </body>
 </html>
