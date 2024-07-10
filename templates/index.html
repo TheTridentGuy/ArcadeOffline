@@ -88,7 +88,7 @@
         <br>
         Time remaining:
         <br>
-        <h1>60:00</h1>
+        <h1 id="time">60:00</h1>
         <button id="start" onclick="toggle();">Start Session</button>
     </div>
     <div id="timeline" class="flexbox">
@@ -110,7 +110,11 @@
         function $(id){
             return document.getElementById(id)
         }
-        var session = false
+
+        var session = false;
+        var min = 60;
+        var sec = 0;
+
         function toggle(){
             const xhr = new XMLHttpRequest();
             if(session == true){
@@ -120,6 +124,7 @@
                 xhr.onreadystatechange = (e) => {
                     console.log(xhr.responseText)
                 }
+                end()
             }else{
                 const url = "/startsession";
                 xhr.open("GET", url);
@@ -130,10 +135,31 @@
                 start()
             }
         }
+
         function start(){
+            var min = 60;
+            var sec = 0;
+            session = true;
             a = $("activity");
             a.innerHTML = "Active";
             a.style.backgroundColor = "#0f0"
+        }
+
+        function end(){
+            session = false;
+            a = $("activity");
+            a.innerHTML = "Inactive";
+            a.style.backgroundColor = "#f00"
+        }
+
+        function countdown(){
+            t = $("time");
+            t.innerHTML = min + ":" + sec;
+            sec -= 1;
+            if(sec == 0){
+                sec == 60;
+                min -= 1;
+            }
         }
     </script>
 </body>
