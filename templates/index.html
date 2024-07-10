@@ -14,7 +14,7 @@
         }
         #activity {
             color: #333;
-            background-color: #0f0;
+            background-color: #f00;
         }
         .flexcontainer {
             display: flex;
@@ -73,55 +73,68 @@
             max-height: 4vmin;
             font-size: 2vmin;
         }
+        #start {
+            color: #333;
+            background-color: #0f0;
+            font-size: 3vmin;
+            display: flex;
+        }
     </style>
 </head>
 <body>
     <div id="info" class="flexbox">
-        Session: <span id="activity">Active</span> 
+        Session: <span id="activity">Inactive</span> 
         <br>
         <br>
         Time remaining:
         <br>
         <h1>60:00</h1>
+        <button id="start" onclick="toggle();">Start Session</button>
     </div>
     <div id="timeline" class="flexbox">
         <div id="timelineview" class="flexcontainer">
             <div class="event flexbox">
-                <span>15:00</span>
-                <p>45m remaining</p>
-            </div>
-            <div class="event">
-                <span>15:00</span>
-                <p>45m remaining</p>
-            </div>
-            <div class="event">
-                <span>15:00</span>
-                <p>45m remaining</p>
-            </div>
-            <div class="event">
-                <span>15:00</span>
-                <p>45m remaining</p>
-            </div>
-            <div class="event">
-                <span>15:00</span>
-                <p>45m remaining</p>
-            </div>
-            <div class="event">
-                <span>15:00</span>
-                <p>45m remaining</p>
-            </div>
-            <div class="event">
-                <span>15:00</span>
-                <p>45m remaining</p>
-            </div>
+                <span>00:00</span>
+                <p>Session Inactive</p>
+            </div> 
         </div>
         <div id="update" class="flexbox flexcontainerh">
-            <input class="flexboxh" type="text" placeholder="Did this, did that...">
+            <input class="flexboxh" type="text" placeholder="Working on this, working that...">
             <button class="flexboxh">Send Update</button>
             <div class="break"></div>
             <input class="flexboxh" type="text" placeholder="/your/arcade/project/">
             <button class="flexboxh">Send Project Snapshot as Git Commit</button>
         </div>
     </div>
+    <script>
+        function $(id){
+            return document.getElementById(id)
+        }
+        var session = false
+        function toggle(){
+            const xhr = new XMLHttpRequest();
+            if(session == true){
+                const url = "/endsession";
+                xhr.open("GET", url);
+                xhr.send();
+                xhr.onreadystatechange = (e) => {
+                    console.log(xhr.responseText)
+                }
+            }else{
+                const url = "/startsession";
+                xhr.open("GET", url);
+                xhr.send();
+                xhr.onreadystatechange = (e) => {
+                    console.log(xhr.responseText)
+                }
+                start()
+            }
+        }
+        function start(){
+            a = $("activity");
+            a.innerHTML = "Active";
+            a.style.backgroundColor = "#0f0"
+        }
+    </script>
 </body>
 </html>
