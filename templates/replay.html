@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Replay - Arcade Offline</title>
+
+    <style>
+        body {
+            background-color: #333;
+        }
+        * {
+            color: #666;
+            font-family: monospace;
+        }
+        .flexcontainer {
+            display: flex;
+            flex-direction: column;
+        }
+        .flexbox {
+            background-color: #222;
+            border-radius: 2vmin;
+            padding: 2vmin;
+            font-size: 3vmin;
+            margin: 2vmin;
+        }
+        .flexcontainerh {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .flexboxh {
+            background-color: #222;
+            border-radius: 2vmin;
+            padding: 2vmin;
+            font-size: 3vmin;
+            margin: 2vmin;
+        }
+        .break {
+            flex-basis: 100%;
+            height: 0;
+        }
+        .event {
+            background-color: #333;
+            border-radius: 1vmin;
+            padding: 1vmin;
+            font-size: large;
+            margin: 1vmin;
+        }
+        button, input{
+            color: #666;
+            background-color: #333;
+            border-color: #333;
+            border-radius: 1vmin;
+            margin: .5vmin;
+        }
+        input {
+            flex-grow: 1;
+            max-height: 3vmin;
+            font-size: 2vmin;
+        }
+    </style>
+</head>
+<body>
+    <div class="flexcontainer">
+        <div class="flexbox">
+            <h1>Replay Offline Arcade Sessions</h1>
+        </div>
+        <div class="flexbox">
+            <h3>Available Sessions:</h3>
+            <div class="flexcontainer">
+                <div class="event flexbox">
+                    <button>Replay</button>
+                    <span>xxxxxxxxxxxx.session</span>
+                </div> 
+            </div>
+        </div>
+    </div>
+</body>
+</html>
