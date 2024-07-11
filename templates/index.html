@@ -66,11 +66,11 @@
             background-color: #333;
             border-color: #333;
             border-radius: 1vmin;
-            margin: 1vmin;
+            margin: .5vmin;
         }
         input {
             flex-grow: 1;
-            max-height: 4vmin;
+            max-height: 3vmin;
             font-size: 2vmin;
         }
         #start {
@@ -78,6 +78,44 @@
             background-color: #0f0;
             font-size: 3vmin;
             display: flex;
+        }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: #333; /* Fallback color */
+            background-color: #3333; /* Black w/ opacity */
+        }
+        .modal-content {
+            background-color: #333;
+            margin: auto;
+            padding: 20px;
+            width: 80%;
+            border-radius: 2vmin;
+        }
+        .modal-content a {
+            text-decoration: underline;
+        }
+        .close {
+            color: #666;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #confirmbox {
+            display: none;
         }
     </style>
 </head>
@@ -89,7 +127,11 @@
         Time remaining:
         <br>
         <h1 id="time">60:00</h1>
-        <button id="start" onclick="toggle();">Start Session</button>
+        <button id="start" onclick="toggle()">Start Session</button>
+        <div id="confirmbox">
+            <input id="endconfirm" type="checkbox" name="endconfirm">
+            <label for="endconfirm">check to end session</label>
+        </div>
     </div>
     <div id="timeline" class="flexbox">
         <div id="timelineview" class="flexcontainer">
@@ -104,6 +146,8 @@
             <div class="break"></div>
             <input class="flexboxh" type="text" placeholder="/your/arcade/project/">
             <button class="flexboxh">Send Project Snapshot as Git Commit</button>
+            <div class="break"></div>
+            <input type="text" class="flexboxh" placeholder="Commit message...">
         </div>
     </div>
     <script>
@@ -114,10 +158,12 @@
         var session = false;
         var min = 60;
         var sec = 0;
+        var timer = null;
 
         function toggle(){
             const xhr = new XMLHttpRequest();
             if(session == true){
+                if($("endconfirm").checked != true){return}
                 const url = "/endsession";
                 xhr.open("GET", url);
                 xhr.send();
@@ -137,12 +183,23 @@
         }
 
         function start(){
-            var min = 60;
-            var sec = 0;
+            min = 60;
+            sec = 0;
             session = true;
             a = $("activity");
             a.innerHTML = "Active";
             a.style.backgroundColor = "#0f0"
+            b = $("start")
+            b.style.backgroundColor = "#f00"
+            b.innerHTML = "End Session Early"
+            timer = setInterval(countdown, 1000)
+            $("timelineview").innerHTML = `
+            <div class="event flexbox">
+                <span>00:00</span>
+                <p>You've started your session. Send updates here and take a snapshot of you're project once it's done.</p>
+            </div>`
+            $("endconfirm").checked = false
+            $("confirmbox").style.display = "block"
         }
 
         function end(){
@@ -150,16 +207,31 @@
             a = $("activity");
             a.innerHTML = "Inactive";
             a.style.backgroundColor = "#f00"
+            clearInterval(timer)
+            b = $("start")
+            b.style.backgroundColor = "#0f0"
+            b.innerHTML = "Start Session"
+            $("time").innerHTML = "60:00"
+            $("timelineview").innerHTML = `
+            <div class="event flexbox">
+                <span>00:00</span>
+                <p>Session Inactive</p>
+            </div>`
+            $("confirmbox").style.display = "none"
         }
 
         function countdown(){
-            t = $("time");
-            t.innerHTML = min + ":" + sec;
-            sec -= 1;
             if(sec == 0){
-                sec == 60;
+                sec = 59;
                 min -= 1;
             }
+            t = $("time");
+            t.innerHTML = pad(min, 2) + ":" + pad(sec, 2);
+            sec -= 1;
+        }
+        function pad(num, size) {
+            var s = "00" + num;
+            return s.substr(s.length-size);
         }
     </script>
 </body>
