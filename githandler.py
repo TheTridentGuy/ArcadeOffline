@@ -1,16 +1,18 @@
 import shutil
 import git
+import os
 
 
 user = git.Actor("aidenbohlander", "aiden.bohlander@gmail.com")
 
 
-def push_commit(path, commit_id, url, message):
+def push_commit(path, commit_id, message):
     shutil.copytree(path, "tmp/")
     repo = git.Repo("tmp/")
-    repo.git.reset("--hard", commit_id)
+    os.system("cd ./tmp")
+    os.system(f"git reset --hard {commit_id}")
     index = repo.index
     index.commit(message)
-    origin = repo.create_remote("origin", url)
-    origin.push()
+    os.system("git add -A")
+    os.system("git push --set-upstream origin master")
     shutil.rmtree("tmp/")
